@@ -2,32 +2,47 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video Panel</title>
+    <title>UDDINsp APP</title>
 
 <style>
 body{
     margin:0;
-    background:#111;
+    background:#000;
     font-family:Arial;
     color:yellow;
     text-align:center;
     overflow-x:hidden;
+    align-items: center;
 }
 
+        .main-wrapper { 
+             
+            max-width: 775px; 
+            background: #111; 
+            border: 1px solid #222; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9); 
+            border-radius: ;
+    text-align:center;
+    overflow-x:hidden;
+    align-items: center;
+    margin: 0 auto; /* ব্লগস্পটে সেন্টারের জন্য জরুরি */
+        }
+  
 /* LOGO */
 .logo{
+    font-family: sans-serif;
     font-size:24px;
     font-weight:bold;
-    padding:10px;
+    padding:15px;
     letter-spacing: 2px;
-
+    text-align: center;
 }
 
 /* PLAYER */
 .player-wrapper{
     position:relative; /* aspect-ratio:16/9; */
     width:768px;
-    margin:auto;
+    margin:auto 1px;
 }
 
 iframe{
@@ -46,7 +61,7 @@ iframe{
     top:50%;
     transform:translateY(-50%);
     background:rgba(0,0,0,0.6);
-    color:yellow;
+    color:rgba(225,225,0,0.2); 
     border:2px solid yellow;
     width:45px;
     height:45px;
@@ -63,11 +78,11 @@ iframe{
 
   
 .control-btn:hover {
-   font-size:26px;  /* transform:scale(1.3); */
+   font-size:26px;  color:rgba(225,225,0,1);
 }
   /* ২. মাউস যখন ভিডিওর ওপর (playerBox) থাকবে */
 #videoBox.mouse-active .control-btn{
-   font-size:26px;  /* transform:scale(1.3); */
+   font-size:26px;    color:rgba(225,225,0,1);  
 }
   
 .control-left{ left:10px; }
@@ -82,20 +97,21 @@ iframe{
     height:40px;
     border-radius:50%;
     background:rgba(0,0,0,0.9);
-    border:2px solid yellow;
+    border:2px solid rgba(225,225,0,0.2);
     font-size:32px;
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
     transition: 0.3s;
+    color:rgba(225,225,0,0.2);
 }
 .full-btn:hover  {
     transform:scale(1.2); /* transform: translateY(-2px); *//* হালকা লিফট ইফেক্ট */
 }
   /* ২. মাউস যখন ভিডিওর ওপর (playerBox) থাকবে */
 #videoBox.mouse-active .full-btn {
-    transform:scale(1.2); /* transform: translateY(-2px); *//* হালকা লিফট ইফেক্ট */
+   color:rgba(225,225,0,1);  border:2px solid rgba(225,225,1);
 }
 .refresh-btn{
     position: absolute;
@@ -128,7 +144,7 @@ iframe{
     cursor:pointer;
 }
 .categories button:hover {
-    background:#333;
+    background:#1e1e1e;
   transform: translateY(-1px); /* হালকা লিফট ইফেক্ট */
 }
 .categories button.active{
@@ -175,22 +191,22 @@ iframe{
 }
 .video-btn{
     text-align:center;
-    margin:6px;
+    margin:9px;
     cursor:pointer;
     min-width:70px;
     border-radius: 10px;
-border:1px solid #333;
+    border:1px solid #333;
+background: #222;
   }
 .video-btn:hover {
-  transform: translateY(-2px); /* হালকা লিফট ইফেক্ট */
-  background: #222;
+  transform: translateY(-1px); /* হালকা লিফট ইফেক্ট */
+  background: #1e1e1e;
 }
 .video-btn.active {
-    border:1px solid lime;
     border-bottom: 3px solid lime;
-    border-top: 3px solid lime;
-    background: #333;
     transform: translateY(-0px);
+  background: #000;
+  
 }
 .video-btn img{
     margin:auto;
@@ -198,17 +214,20 @@ border:1px solid #333;
     height:60px;
     border-radius:50%;
     display:block;
+  border:1px solid YELLOW;
 }
 
 .video-btn.active img{
-    border:0px solid lime;
-    border-bottom: 0px solid lime;
+    border:3px solid lime;
+    border-bottom: 3px solid lime;
 }
 
 .video-btn span{
     font-size:12px;
 }
-
+.video-btn.active span{
+    color: lime;
+}
 .arrow{
     font-size:26px;
     cursor:pointer;
@@ -229,7 +248,7 @@ border:1px solid #333;
     width:100%;
     height: 100%;  /*height:220px;*/
     border: 0px solid ;
-    border-top: 1px solid yellow;
+    border-top: 1px solid #222;
     border-bottom: 1px solid yellow;
   
 }
@@ -242,9 +261,17 @@ border:1px solid #333;
 .control-left{ left:5px; }
 .control-right{ right:5px; }
 
-.full-btn{border:0px solid yellow;
+.full-btn{background:rgba(0,0,0,0.0);border:0px solid yellow;
   }
   
+.video-btn img{
+    margin:auto;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    display:block;
+  border:2px solid yellow;
+}
   
 }
   
@@ -310,14 +337,16 @@ border:1px solid #333;
 </head>
 <body>
 
-<div class="logo"id="logo">YELLOW STREAM</div>
+<div class="main-wrapper">
+  
+<div class="logo"id="logo">UDDiNsp APP</div>
 
-<div class="player-wrapper" id="videoBox">
+<div class="player-wrapper" id="videoBox" style="background: #000; ">
   
   
              <!-- 👇 এইটা নিচে থাকবে -->
     <div class="loading-text-anim" 
-    style=" position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:yellow;font-size:26px; z-index:0;"> UDDINsp APP </div>
+    style=" position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:yellow;font-size:26px; z-index:0;"> UDDIN sp </div>
   
     <iframe allow="autoplay; fullscreen; encrypted-media" allowfullscreen="" id="player" playsinline="" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation" scrolling="no">   </iframe>
 
@@ -333,16 +362,17 @@ border:1px solid #333;
   </div>
   
     <!-- Countdown overlay -->
- <div id="countdownDiv" style="background: rgba(0,0,0,0.5); border-radius: 10px; color: white; display: none; font-size: 50px; left: 50%; padding: 20px; position: absolute; text-align: center; top: 50%; transform: translate(-50%,-50%); z-index: 9999;">5</div>
+ <div id="countdownDiv" style="background: rgba(0,0,0,0.0); border-radius: 10px; color: white; display: none; font-size: 50px; left: 50%; padding: 20px; position: absolute; text-align: center; top: 50%; transform: translate(-50%,-50%); z-index: 9999;">5</div>
 </div>
 
-<div class="categories">
+<div class="categories" style="background:  ;margin-bottom: 20px;" >
     <button class="active" onclick="filterCategory('all',this)">ALL</button>
     <button onclick="filterCategory('football',this)">FOOTBALL</button>
     <button onclick="filterCategory('cricket',this)">CRICKET</button>
     <button onclick="filterCategory('hindi',this)">HINDI</button>
     <button onclick="filterCategory('english',this)">ENGLISH</button>
     <button onclick="filterCategory('bangla',this)">BANGLA</button>
+</div>
 </div>
 <!-- (SHOW CH BUTTON ONE LINE)...
 <div class="video-wrapper">
@@ -351,10 +381,10 @@ border:1px solid #333;
     <div class="arrow" onclick="scrollNext()">❯</div>
 </div>
 -->
-<div class="video-wrapper">
+<div class="video-wrapper"style="background: #0a0a0a;border: 4px solid #222;border-top: 0px solid #222;margin-top: 0;max-width: 775px;">
     <div class="video-container" id="videoList"></div>
 </div>
-  
+
 <script>
 var currentCategory = "all";
 var currentIndex = 0;
@@ -563,8 +593,8 @@ function renderButtons(){
         div.className="video-btn";
 
         div.innerHTML=`
-        <img src="${v.img || 'https://placehold.co/60x60/ddd/999?text=no%0Aposter'}" 
-             onerror="this.src='https://placehold.co/60x60/ddd/999?text=no%0Aposter'">
+        <img src="${v.img || 'https://placehold.co/60x60/ddd/999?text=no%0Aimage'}" 
+             onerror="this.src='https://placehold.co/60x60/ddd/999?text=no%0Aimage'">
         <span>${v.name}</span>`;
 
         div.onclick=function(){
@@ -805,6 +835,19 @@ if ("mediaSession" in navigator) {
     navigator.mediaSession.setActionHandler("pause", null);
 }
 </script>
+  
+  
+<script>
+  atOptions = {
+    'key' : '81b2354248e505929f150936d8b5a662',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/81b2354248e505929f150936d8b5a662/invoke.js"></script>
+  
   
 </body>
 </html>
