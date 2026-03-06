@@ -445,65 +445,56 @@ var videos = [
 ];
 
 
+// ================================
+// ===== GitHub JSON থেকে ভিডিও ডাটা লোড =====
+// ================================
+
+// এখানে তোমার GitHub Raw JSON URL বসাও
+const jsonURL = "https://raw.githubusercontent.com/username/video-data/main/channels.json"; // 🔹 এখানে পরিবর্তন করো
+
 // ===== FETCH EXTERNAL DATA =====
-fetch("https://aman007power.blogspot.com/p/80-button-video-external-page-for.html")
-.then(res => res.text())
-// ===== AFTER FETCH EXTERNAL DATA =====
-.then(html => {
+fetch(jsonURL)
+.then(res => res.json()) // JSON হিসেবে parse করা হচ্ছে
+.then(data => {
 
-    let parser = new DOMParser();
-    let doc = parser.parseFromString(html, "text/html");
-    let pre = doc.querySelector("pre#dataBlock");
+    // data হলো array [{id,img,link,countdown,categories}, ...]
+    data.forEach(channel => {
 
-    if(!pre){
-        console.log("❌ dataBlock not found!");
-        return;
-    }
+        // videos array থেকে channel.id এর সাথে মিলে এমন object খুঁজে নেওয়া
+        let videoObj = videos.find(v => v.name === channel.id);
+        if(!videoObj) return; // যদি না মিলে, skip করা
 
-    let lines = pre.textContent.trim().split("\n");
-
-    // Keep only channels existing in external page
-    let externalChannels = [];
-
-    lines.forEach(line => {
-
-        line = line.trim();
-        if(!line || !line.includes("=")) return;
-
-        let [ch, rest] = line.split("=");
-        let parts = rest.split("|");
-
-        let chName = ch.trim();
-        externalChannels.push(chName);
-
-        let videoObj = videos.find(v => v.name === chName);
-        if(!videoObj) return;
-
-        videoObj.img = parts[0]?.trim() || "";
-        videoObj.link = parts[1]?.trim() || "";
-
-        let sec = parseInt(parts[2]);
-        videoObj.countdown = (!isNaN(sec) && sec > 0) ? sec : null;
-
-        videoObj.categories = parts[3]
-            ? parts[3].split(",").map(c => c.trim())
-            : [];
+        // 🔹 ভিডিও ডাটা আপডেট
+        videoObj.img = channel.img || ""; // ছবি লিংক
+        videoObj.link = channel.link || ""; // ভিডিও লিংক
+        videoObj.countdown = channel.countdown || null; // কাউন্টডাউন সেকেন্ড
+        videoObj.categories = channel.categories || []; // ক্যাটেগরি
     });
 
-    // 🔹 filter main videos array to only keep channels present in external page
-    videos = videos.filter(v => externalChannels.includes(v.name));
+    // 🔹 শুধু সেই ভিডিও রাখো যা GitHub JSON-এ আছে
+    let externalChannelIds = data.map(c => c.id);
+    videos = videos.filter(v => externalChannelIds.includes(v.name));
 
-    console.log("✅ External data loaded and filtered:", videos);
+    console.log("✅ External JSON data loaded:", videos);
 
+    // 🔹 ভিডিও বাটন রেন্ডার করা
     renderButtons();
+
+    // 🔹 প্রথম ভিডিও লোড
     loadVideo(0);
+
+})
+.catch(err => {
+    console.error("❌ JSON load error:", err);
 });
 
-// ===== FILTER =====
+
+// ===== FILTER FUNCTION =====
+// নির্বাচিত ক্যাটেগরির ভিডিও filter করা
 function getFiltered(){
     return videos.filter(v =>
-        currentCategory==="all" ||
-        v.categories.includes(currentCategory)
+        currentCategory === "all" ||          // যদি all selected থাকে
+        v.categories.includes(currentCategory) // অথবা matching category থাকে
     );
 }
 
